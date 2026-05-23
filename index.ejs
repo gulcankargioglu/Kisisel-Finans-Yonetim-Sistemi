@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Finova Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+
+        }
+
+        body{
+
+            background:#0f172a;
+            color:white;
+            font-family:Arial;
+            overflow-x:hidden;
+
+        }
+
+        .sidebar{
+
+width:260px;
+height:100vh;
+
+background:#111827;
+
+position:fixed;
+
+padding:30px 20px;
+
+border-right:1px solid rgba(255,255,255,0.05);
+
+}
+
+.logo{
+
+font-size:34px;
+font-weight:bold;
+
+margin-bottom:50px;
+
+}
+
+.menu-item{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+text-decoration:none;
+
+color:#cbd5e1;
+
+padding:16px;
+
+border-radius:16px;
+
+margin-bottom:10px;
+
+transition:0.3s;
+
+}
+
+.menu-item:hover{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+.active-menu{
+
+background:#10b981;
+
+color:white;
+
+}
+
+        .main{
+
+            margin-left:260px;
+
+            padding:35px;
+
+        }
+
+        .topbar{
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            margin-bottom:35px;
+
+        }
+
+        .topbar h2{
+
+            font-size:36px;
+            font-weight:bold;
+
+        }
+
+        .topbar p{
+
+            color:#94a3b8;
+
+            margin-top:6px;
+
+        }
+
+        .user-btn{
+
+            background:#111827;
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            color:white;
+
+            padding:14px 22px;
+
+            border-radius:16px;
+
+            text-decoration:none;
+
+            transition:0.3s;
+
+        }
+
+        .user-btn:hover{
+
+            background:#1e293b;
+
+        }
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:repeat(4,1fr);
+
+            gap:22px;
+
+            margin-bottom:35px;
+
+        }
+
+        .card-box{
+
+            background:#111827;
+
+            padding:28px;
+
+            border-radius:24px;
+
+            box-shadow:0 0 25px rgba(0,0,0,0.2);
+
+        }
+
+        .card-title{
+
+            color:#94a3b8;
+
+            margin-bottom:12px;
+
+            font-size:15px;
+
+        }
+
+        .card-value{
+
+            font-size:32px;
+
+            font-weight:bold;
+
+        }
+
+        .form-box{
+
+            background:#111827;
+
+            border-radius:28px;
+
+            padding:32px;
+
+            margin-bottom:35px;
+
+            box-shadow:0 0 30px rgba(0,0,0,0.2);
+
+        }
+
+        .form-box h4{
+
+            margin-bottom:25px;
+            
+            font-size:28px;
+
+        }
+
+        .form-control,
+        .form-select{
+
+            
+            background:#1e293b !important;
+
+            border:none !important;
+
+            color:white !important;
+
+            padding:14px;
+
+            border-radius:14px;
+            
+
+        }
+
+        .form-control::placeholder{
+
+            color:#94a3b8 !important;
+
+        }
+        
+
+        .submit-btn{
+
+            background:#10b981;
+
+            border:none;
+
+            width:100%;
+
+            padding:14px;
+
+            border-radius:14px;
+
+            color:white;
+
+            font-weight:bold;
+
+            transition:0.3s;
+
+        }
+
+        .submit-btn:hover{
+
+            background:#059669;
+
+        }
+
+
+        .table-box{
+
+            background:#111827;
+
+            border-radius:30px;
+
+            padding:32px;
+
+            box-shadow:0 0 40px rgba(0,0,0,0.25);
+
+        }
+
+        .table-header{
+
+            margin-bottom:28px;
+
+        }
+
+        .table-header h4{
+
+            color:white;
+
+            font-size:30px;
+
+            font-weight:bold;
+
+            margin-bottom:6px;
+
+        }
+
+        .table-header p{
+
+            color:#94a3b8;
+
+            margin:0;
+
+        }
+
+        .custom-table{
+
+            width:100%;
+
+            border-collapse:separate;
+
+            border-spacing:0 12px;
+
+        }
+
+        .custom-table thead th{
+
+            color:#94a3b8;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            padding:0 18px 10px 18px;
+
+        }
+
+        .custom-table tbody tr{
+
+            background:#1e293b;
+
+            transition:0.3s;
+
+        }
+
+        .custom-table tbody tr:hover{
+
+            transform:scale(1.01);
+
+            background:#243041;
+
+        }
+
+        .custom-table tbody td{
+
+            padding:22px 18px;
+
+            color:white;
+
+            vertical-align:middle;
+
+        }
+
+        .custom-table tbody td:first-child{
+
+            border-top-left-radius:18px;
+
+            border-bottom-left-radius:18px;
+
+        }
+
+        .custom-table tbody td:last-child{
+
+            border-top-right-radius:18px;
+
+            border-bottom-right-radius:18px;
+
+        }
+
+        .kategori-badge{
+
+            display:inline-block;
+
+            background:#0f172a;
+
+            color:#cbd5e1;
+
+            padding:10px 16px;
+
+            border-radius:14px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+        }
+
+        .tur{
+
+            padding:10px 16px;
+
+            border-radius:14px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+        }
+
+        .gelir{
+
+            background:rgba(16,185,129,0.12);
+
+            color:#10b981;
+
+        }
+
+        .gider{
+
+            background:rgba(239,68,68,0.12);
+
+            color:#ef4444;
+
+        }
+
+        .gelir-text{
+
+            color:#10b981;
+
+            font-weight:bold;
+
+        }
+
+        .gider-text{
+
+            color:#ef4444;
+
+            font-weight:bold;
+
+        }
+
+        .tarih{
+
+            color:#94a3b8;
+
+        }
+
+        .btn-group-custom{
+
+            display:flex;
+
+            gap:10px;
+
+        }
+
+        
+.action-btn { 
+    background: none; 
+    border: none; 
+    color: #94a3b8; 
+    font-size: 18px; 
+    transition: 0.3s; 
+    padding: 5px; 
+    text-decoration: none;
+}
+
+.action-btn:hover { 
+    color: white; 
+}
+
+.delete-btn:hover { 
+    color: #ef4444 !important; 
+}
+
+
+.modal-content { 
+    background: #111827 !important; 
+    color: white; 
+    border-radius: 28px !important; 
+    border: 1px solid rgba(255,255,255,0.08) !important;
+}
+        .custom-table td:nth-child(2),
+.custom-table th:nth-child(2){
+
+    width:150px;
+
+}
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            Finova
+
+        </div>
+
+        <a href="/dashboard"
+        class="menu-item active-menu">
+
+           <i class="bi bi-grid"></i>
+           Dashboard
+
+        </a>
+
+        <a href="/islemler"
+           class="menu-item">
+
+           <i class="bi bi-cash-stack"></i>
+           İşlemler
+
+        </a>
+
+        <a href="/analizler"
+           class="menu-item">
+
+           <i class="bi bi-pie-chart"></i>
+           Analizler
+
+        </a>
+
+        <a href="/butceler"
+           class="menu-item">
+
+           <i class="bi bi-bullseye"></i>
+           Bütçeler
+
+        </a>
+
+    </div>
+
+
+    <div class="main">
+
+
+        <div class="topbar">
+
+            <div>
+
+                <h2>
+
+                    Dashboard
+
+                </h2>
+
+                <p>
+
+                    Finansal durumunu kontrol et
+
+                </p>
+
+            </div>
+
+            <% if(user){ %>
+
+                <a href="/logout"
+                   class="user-btn">
+
+                   👤 <%= user.ad %> | Çıkış Yap
+
+                </a>
+
+            <% } else { %>
+
+                <a href="/login"
+                   class="user-btn">
+
+                   👤 Oturum Aç
+
+                </a>
+
+            <% } %>
+
+        </div>
+
+        <div class="cards">
+
+            <div class="card-box">
+
+                <div class="card-title">
+
+                    Toplam Bakiye
+
+                </div>
+
+                <div class="card-value text-success">
+
+                    <%= toplamBakiye %> TL
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <div class="card-title">
+
+                    Gelir
+
+                </div>
+
+                <div class="card-value text-primary">
+
+                    +<%= toplamGelir %> TL
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <div class="card-title">
+
+                    Gider
+
+                </div>
+
+                <div class="card-value text-danger">
+
+                    -<%= toplamGider %> TL
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <div class="card-title">
+
+                    Tasarruf
+
+                </div>
+
+                <div class="card-value text-warning">
+
+                    %<%= tasarrufOrani %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-box">
+
+            <h4>
+
+                Yeni İşlem Ekle
+
+            </h4>
+
+            <form action="/ekle"
+                  method="POST">
+
+                <div class="row g-3">
+
+                    <div class="col-lg-2"
+     style="width:15%">
+
+                        <input type="number"
+                               step="0.01"
+                               name="tutar"
+                               placeholder="Tutar"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+                    <div class="col-lg-2"
+     style="width:11%">
+
+                        <select name="tur"
+                                class="form-select"
+                                required>
+
+                            <option value=""
+                                    selected
+                                    disabled>
+
+                                ▼ Tür
+
+                            </option>
+
+                            <option value="gelir">
+
+                                Gelir
+
+                            </option>
+
+                            <option value="gider">
+
+                                Gider
+
+                            </option>
+
+                        </select>
+
+                    </div>
+                    <div class="col-lg-2"
+     style="width:15%">
+
+     <select name="hesap_id" class="form-select" required> 
+        <option value="" selected disabled>▼ Hesap Seçin</option> 
+        <% hesaplar.forEach(function(hesap) { %>
+            <option value="<%= hesap.hesap_id %>">
+                <%= hesap.hesap_adi %> (<%= hesap.bakiye %> TL)
+            </option>
+        <% }) %>
+    </select>
+
+                     
+
+                         
+
+                     
+
+                    </div> 
+
+  
+
+                    <div class="col-lg-2"> 
+
+  
+
+                        <select name="kategori_id" class="form-select" required>
+                            <option value="" selected disabled>▼ Kategori</option>
+                            <option value="1">🛒 Market</option>
+                            <option value="2">🍔 Yemek</option>
+                            <option value="3">🚗 Ulaşım</option>
+                            <option value="4">💊 Sağlık</option>
+                            <option value="5">🧾 Fatura</option>
+                            <option value="6">👕 Giyim</option>
+                            <option value="7">💻 Teknoloji</option>
+                            <option value="8">📚 Eğitim</option>
+                            <option value="9">🎮 Eğlence</option>
+                            <option value="10">💼 Maaş</option>
+                            <option value="11">🧑‍💻 Freelance</option>
+                            <option value="12">📈 Yatırım</option>
+                            <option value="13">🎓 Burs</option>
+                            <option value="14">🎁 Hediye</option>
+                            <option value="15">✨ Diğer</option>
+                        </select> 
+
+                    </div>
+
+                    <div class="col-lg-2">
+
+                        <input type="text"
+                               name="aciklama"
+                               placeholder="Açıklama"
+                               class="form-control">
+
+                    </div>
+
+                    <div class="col-lg-2">
+
+                        <input type="date"
+                               name="tarih"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+                    <div class="col-lg-1">
+
+                        <button class="submit-btn">
+
+                            Ekle
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+        <% if (typeof hata !== 'undefined' && hata) { %>
+            <div style="
+                margin-top: 15px;
+                background: rgba(239, 68, 68, 0.1);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                color: #f87171;
+                padding: 10px 14px;
+                border-radius: 10px;
+                font-size: 13px;
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            " id="ejsHataKutusu">
+                <span>⚠️ <%= hata %></span>
+                <button onclick="document.getElementById('ejsHataKutusu').remove();" style="
+                    background: none;
+                    border: none;
+                    color: #f87171;
+                    font-size: 16px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    padding-left: 10px;
+                ">×</button>
+            </div>
+        <% } %>
+
+<script>
+    
+    const urlKontrol = new URLSearchParams(window.location.search);
+    const gelenHata = urlKontrol.get('error');
+
+    if (gelenHata) {
+        document.getElementById('hataMetniAlani').innerText = '⚠️ ' + gelenHata;
+        document.getElementById('islemHataKutusu').style.display = 'block';
+    }
+
+    function kapatHataKutusunu() {
+     
+        window.history.replaceState({}, document.title, window.location.pathname);
+      
+        document.getElementById('islemHataKutusu').style.display = 'none';
+    }
+</script>
+
+
+
+
+        <div class="form-box mt-4">
+            <h4 class="mb-3" style="color: white; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span>💳 Kredi Kartı Borcu Ödeme</span>
+                <span style="font-size: 14px; color: #f87171; background: rgba(248, 113, 113, 0.1); padding: 6px 12px; border-radius: 8px; font-weight: 500;">
+                    <% 
+                        // Giriş yapan kullanıcının kredi kartını bulup güncel borç durumunu çıkarıyoruz
+                        let kartHesabi = hesaplar.find(h => h.hesap_adi.includes('Kredi Kartı'));
+                        let guncelBorc = kartHesabi ? Math.abs(parseFloat(kartHesabi.bakiye || 0)) : 0;
+                    %>
+                    Güncel Kart Borcu: <%= guncelBorc.toFixed(2) %> TL
+                </span>
+            </h4>
+        
+            <form action="/kart-borcu-ode" method="POST">
+                <div class="row g-3">
+                    
+                    <div class="col-lg-5">
+                        <select name="kaynak_hesap_id" class="form-select" required>
+                            <option value="" selected disabled>▼ Ödemenin Yapılacağı Banka Hesabı</option>
+                            <% hesaplar.forEach(h => { %>
+                                <% if(!h.hesap_adi.includes('Kredi Kartı') && !h.hesap_adi.includes('Nakit')) { %>
+                                    <option value="<%= h.hesap_id %>">
+                                        <%= h.hesap_adi %> (Mevcut: <%= h.bakiye %> TL)
+                                    </option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                    </div>
+        
+                    <div class="col-lg-4">
+                        <input type="number" step="0.01" min="0.01" max="<%= guncelBorc %>" name="tutar" id="kartBorcTutarInput" placeholder="Ödenecek Tutar" class="form-control" required>
+                        <style>
+                            #kartBorcTutarInput::placeholder {
+                                color: #ffffff !important;
+                                opacity: 1 !important;
+                            }
+                        </style>
+                    </div>
+        
+                    <div class="col-lg-3">
+                        <button type="submit" class="submit-btn" style="background: #3b82f6;">Borcu Öde</button>
+                    </div>
+        
+                </div>
+            </form>
+        </div>
+      
+        <div class="table-box">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h4>
+
+                        Son İşlemler
+
+                    </h4>
+
+                    <p>
+
+                        Son eklenen finans hareketleri
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <table class="custom-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Kategori</th>
+                        <th>Hesap</th>
+                        <th>Açıklama</th>
+                        <th>Tür</th>
+                        <th>Tutar</th>
+                        <th>Tarih</th>
+                        <th>İşlem</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    
+                    <% islemler.forEach(function(islem){ %>
+
+                        <tr>
+
+                            <td>
+
+                                <div class="kategori-badge">
+
+                                    <%= islem.kategori_adi %>
+
+                                </div>
+
+                            </td>
+                            <td>
+
+                                <%= islem.hesap_adi %>
+                            </td>
+                            <td>
+
+                                <%= islem.aciklama %>
+
+                            </td>
+
+                            <td>
+
+                                <% if(islem.tur == 'gelir'){ %>
+
+                                    <span class="tur gelir">
+
+                                        ↑ Gelir
+
+                                    </span>
+
+                                <% } else { %>
+
+                                    <span class="tur gider">
+
+                                        ↓ Gider
+
+                                    </span>
+
+                                <% } %>
+
+                            </td>
+
+                            <td>
+
+                                <% if(islem.tur == 'gelir'){ %>
+
+                                    <span class="gelir-text">
+
+                                        +<%= islem.tutar %> TL
+
+                                    </span>
+
+                                <% } else { %>
+
+                                    <span class="gider-text">
+
+                                        -<%= islem.tutar %> TL
+
+                                    </span>
+
+                                <% } %>
+
+                            </td>
+
+                            <td class="tarih">
+
+                                <%= new Date(islem.tarih).toLocaleDateString('tr-TR') %>
+
+                            </td>
+
+                            <td>
+                                <div class="btn-group-custom">
+                                    <button class="action-btn" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#editModal<%= islem.islem_id %>">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                            
+                                    <a href="/sil/<%= islem.islem_id %>" 
+                                       class="action-btn delete-btn" 
+                                       onclick="return confirm('Bu işlemi silmek istediğine emin misin?')">
+                                        <i class="bi bi-trash3"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    <% }) %>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    
+
+<% islemler.forEach(function(islem){ %>
+
+    <div class="modal fade"
+         id="editModal<%= islem.islem_id %>"
+         tabindex="-1">
+    
+        <div class="modal-dialog">
+    
+            <div class="modal-content"
+                 style="background:#111827; color:white; border-radius:20px;">
+    
+                <div class="modal-header border-0">
+    
+                    <h5 class="modal-title">
+    
+                        İşlem Düzenle
+    
+                    </h5>
+    
+                    <button type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"></button>
+    
+                </div>
+    
+                <form action="/guncelle/<%= islem.islem_id %>"
+                      method="POST">
+    
+                    <div class="modal-body">
+    
+                        <input type="number"
+                               step="0.01"
+                               name="tutar"
+                               value="<%= islem.tutar %>"
+                               class="form-control mb-3"
+                               required>
+    
+                        <select name="tur"
+                                class="form-select mb-3"
+                                required>
+    
+                            <option value="gelir"
+                            <%= islem.tur == 'gelir' ? 'selected' : '' %>>
+    
+                                Gelir
+    
+                            </option>
+    
+                            <option value="gider"
+                            <%= islem.tur == 'gider' ? 'selected' : '' %>>
+    
+                                Gider
+    
+                            </option>
+    
+                        </select>
+                        <select name="hesap_id" class="form-select mb-3" required>
+                            <% hesaplar.forEach(function(hesap) { %>
+                                <option value="<%= hesap.hesap_id %>" <%= islem.hesap_id == hesap.hesap_id ? 'selected' : '' %>>
+                                    <%= hesap.hesap_adi %>
+                                </option>
+                            <% }) %>
+                        </select>
+    
+                        <select name="kategori_id" class="form-select mb-3" required>
+                            <option value="1" <%= islem.kategori_id == 1 ? 'selected' : '' %>>🛒 Market</option>
+                            <option value="2" <%= islem.kategori_id == 2 ? 'selected' : '' %>>🍔 Yemek</option>
+                            <option value="3" <%= islem.kategori_id == 3 ? 'selected' : '' %>>🚗 Ulaşım</option>
+                            <option value="4" <%= islem.kategori_id == 4 ? 'selected' : '' %>>💊 Sağlık</option>
+                            <option value="5" <%= islem.kategori_id == 5 ? 'selected' : '' %>>🧾 Fatura</option>
+                            <option value="6" <%= islem.kategori_id == 6 ? 'selected' : '' %>>👕 Giyim</option>
+                            <option value="7" <%= islem.kategori_id == 7 ? 'selected' : '' %>>💻 Teknoloji</option>
+                            <option value="8" <%= islem.kategori_id == 8 ? 'selected' : '' %>>📚 Eğitim</option>
+                            <option value="9" <%= islem.kategori_id == 9 ? 'selected' : '' %>>🎮 Eğlence</option>
+                            <option value="10" <%= islem.kategori_id == 10 ? 'selected' : '' %>>💼 Maaş</option>
+                            <option value="11" <%= islem.kategori_id == 11 ? 'selected' : '' %>>🧑‍💻 Freelance</option>
+                            <option value="12" <%= islem.kategori_id == 12 ? 'selected' : '' %>>📈 Yatırım</option>
+                            <option value="13" <%= islem.kategori_id == 13 ? 'selected' : '' %>>🎓 Burs</option>
+                            <option value="14" <%= islem.kategori_id == 14 ? 'selected' : '' %>>🎁 Hediye</option>
+                            <option value="15" <%= islem.kategori_id == 15 ? 'selected' : '' %>>✨ Diğer</option>
+                        </select> 
+    
+                        <input type="text"
+                        name="aciklama"
+                        value="<%= islem.aciklama %>"
+                        placeholder="Açıklama"
+                        class="form-control mb-3 text-white">
+                     
+                 <input type="date"
+                        name="tarih"
+                        value="<%= new Date(islem.tarih).toLocaleDateString('en-CA') %>"
+                        class="form-control"
+                        required>
+    
+                    </div>
+    
+                    <div class="modal-footer border-0">
+    
+                        <button class="submit-btn">
+    
+                            Güncelle
+    
+                        </button>
+    
+                    </div>
+    
+                </form>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+    
+    <% }) %>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

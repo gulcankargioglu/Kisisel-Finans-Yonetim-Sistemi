@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finova Bütçeler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0f172a; color:white; font-family:Arial; overflow-x:hidden; }
+        .sidebar { width:260px; height:100vh; background:#111827; position:fixed; padding:30px 20px; border-right:1px solid rgba(255,255,255,0.05); }
+        .logo { font-size:34px; font-weight:bold; margin-bottom:50px; }
+        .menu-item { display:flex; align-items:center; gap:12px; text-decoration:none; color:#cbd5e1; padding:16px; border-radius:16px; margin-bottom:10px; transition:0.3s; }
+        .menu-item:hover { background:#1e293b; color:white; }
+        .active-menu { background:#10b981; color:white; }
+        .main { margin-left:260px; padding:35px; }
+        .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:35px; }
+        .month-select { background:#111827; border:none; color:white; padding:12px 18px; border-radius:14px; outline:none; }
+        .form-box { background:#111827; padding:30px; border-radius:28px; margin-bottom:35px; }
+        .form-control, .form-select { background:#1e293b !important; border:none !important; color:rgb(255, 255, 255) !important; height:55px; border-radius:14px; }
+        .submit-btn { background:#10b981; border:none; width:100%; height:55px; border-radius:14px; color:white; font-weight:bold; transition:0.3s; cursor:pointer; }
+        .submit-btn:hover { background:#059669; }
+        .budget-box { background:#111827; padding:32px; border-radius:28px; margin-bottom:25px; box-shadow:0 0 30px rgba(0,0,0,0.2); }
+        .budget-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+        .budget-title { font-size:26px; font-weight:bold; }
+        .budget-amount { color:#94a3b8; font-weight: 500; }
+        .action-btn { background:none; border:none; color:#94a3b8; font-size:20px; transition:0.3s; padding:5px; }
+        .action-btn:hover { color:white; }
+        .delete-btn:hover { color:#ef4444 !important; }
+        .progress { height:24px; background:#1e293b; border-radius:20px; overflow:hidden; margin-bottom:15px; }
+        .progress-bar { font-weight:bold; transition: width 0.5s ease-in-out; }
+        .budget-info { display:flex; justify-content:space-between; align-items:center; font-size:15px; }
+        .danger { color:#ef4444; font-weight:bold; }
+        .warning { color:#f59e0b; font-weight:bold; }
+        .safe { color:#10b981; font-weight:bold; }
+        .modal-content { background:#111827 !important; color:white; border-radius:28px !important; border:1px solid rgba(255,255,255,0.1) !important; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">Finova</div>
+        <a href="/dashboard" class="menu-item"><i class="bi bi-grid"></i> Dashboard</a>
+        <a href="/islemler" class="menu-item"><i class="bi bi-cash-stack"></i> İşlemler</a>
+        <a href="/analizler" class="menu-item"><i class="bi bi-pie-chart"></i> Analizler</a>
+        <a href="/butceler" class="menu-item active-menu"><i class="bi bi-bullseye"></i> Bütçeler</a>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Bütçeler</h1>
+            <form action="/butceler" method="GET">
+                <select name="ay" class="month-select" onchange="this.form.submit()">
+                    <% const aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]; %>
+                    <% for(let i=1; i<=12; i++) { %>
+                        <option value="<%= i %>" <%= typeof seciliAy !== 'undefined' && seciliAy == i ? 'selected' : '' %>><%= aylar[i-1] %></option>
+                    <% } %>
+                </select>
+            </form>
+        </div>
+
+        <div class="form-box">
+            <form action="/butce-ekle" method="POST">
+                <div class="row g-3">
+                    <div class="col-lg-4">
+                        <select name="kategori_id" class="form-select" required>
+                            <option value="" selected disabled>▼ Kategori Seçin</option>
+                            <option value="1">🛒 Market</option><option value="2">🍔 Yemek</option>
+                            <option value="3">🚗 Ulaşım</option><option value="4">💊 Sağlık</option>
+                            <option value="5">🧾 Fatura</option><option value="6">👕 Giyim</option>
+                            <option value="7">💻 Teknoloji</option><option value="8">📚 Eğitim</option>
+                            <option value="9">🎮 Eğlence</option><option value="10">💼 Maaş</option>
+                            <option value="11">🧑‍💻 Freelance</option><option value="12">📈 Yatırım</option>
+                            <option value="13">🎓 Burs</option><option value="14">🎁 Hediye</option>
+                            <option value="15">✨ Diğer</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="number" id="butceMiktarInput" name="miktar" placeholder="Bütçe Miktarı" class="form-control" required>
+                        <style>
+                            #butceMiktarInput::placeholder {
+                                color: #ffffffbd !important;
+                                opacity: 1 !important; 
+                            }
+                        </style>
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="hidden" name="ay" value="<%= typeof seciliAy !== 'undefined' ? seciliAy : new Date().getMonth() + 1 %>">
+                        <button type="submit" class="submit-btn">Bütçe Ekle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <% if(typeof butceler !== 'undefined') { %>
+            <% butceler.forEach(function(b){ %>
+                <% 
+                    const harcanan = b.harcanan || 0; 
+                    const miktar = b.miktar || 1;
+                    const yuzde = (harcanan / miktar) * 100;
+                    const kalan = miktar - harcanan;
+                %>
+                <div class="budget-box">
+                    <div class="budget-top">
+                        <div class="budget-title"><%= b.kategori_adi %></div>
+                        <div class="d-flex align-items-center gap-4">
+                            <div class="budget-amount">
+                                <%= harcanan %> TL / <%= miktar %> TL
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="action-btn" data-bs-toggle="modal" data-bs-target="#editModal<%= b.butce_id %>">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <a href="/butce-sil/<%= b.butce_id %>" class="action-btn delete-btn" onclick="return confirm('Bu bütçeyi silmek istediğine emin misin?')">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress">
+                        <div class="progress-bar <%= yuzde > 100 ? 'bg-danger' : yuzde > 70 ? 'bg-warning' : 'bg-success' %>" 
+                             data-width="<%= Math.min(yuzde, 100) %>">
+                            <%= yuzde.toFixed(0) %>%
+                        </div>
+                    </div>
+
+                    <div class="budget-info">
+                        <div>
+                            <% if(kalan >= 0) { %> 
+                                Kalan: <%= kalan %> TL 
+                            <% } else { %>
+                                <span class="danger">🚨 <%= Math.abs(kalan) %> TL aşıldı</span>
+                            <% } %>
+                        </div>
+                        <div class="status">
+                            <% if(yuzde < 70) { %><span class="safe">✅ Kontrol altında</span>
+                            <% } else if(yuzde < 100) { %><span class="warning">⚠️ Limite yaklaşıyor</span>
+                            <% } else { %><span class="danger">🚨 Limit aşıldı</span><% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editModal<%= b.butce_id %>" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content p-4">
+                            <div class="modal-header border-0 pb-0">
+                                <h5 class="fw-bold">Bütçeyi Güncelle</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form action="/butce-guncelle/<%= b.butce_id %>" method="POST">
+                                <div class="modal-body">
+                                    <p class="text-secondary small">Kategori: <%= b.kategori_adi %></p>
+                                    <input type="number" name="miktar" value="<%= b.miktar %>" class="form-control" required>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="submit" class="submit-btn">Güncelle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.progress-bar').forEach(function(bar) {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        });
+    </script>
+</body>
+</html>
