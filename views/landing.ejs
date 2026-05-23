@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Finova</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+
+        }
+
+        body{
+
+            background:#0f172a;
+            color:white;
+            font-family:Arial;
+            overflow-x:hidden;
+
+        }
+
+        .navbar-custom{
+
+            padding:20px 80px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+        }
+
+        .logo{
+
+            font-size:34px;
+            font-weight:bold;
+
+        }
+
+        .nav-buttons a{
+
+            text-decoration:none;
+            margin-left:15px;
+
+        }
+
+        .login-btn{
+
+            color:white;
+            border:1px solid #334155;
+
+            padding:12px 22px;
+
+            border-radius:12px;
+
+            transition:0.3s;
+
+        }
+
+        .login-btn:hover{
+
+            background:#1e293b;
+
+        }
+
+        .register-btn{
+
+            background:#10b981;
+            color:white;
+
+            padding:12px 22px;
+
+            border-radius:12px;
+
+            transition:0.3s;
+
+        }
+
+        .register-btn:hover{
+
+            background:#059669;
+
+        }
+
+        .hero{
+
+            min-height:90vh;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            padding:0 80px;
+
+            gap:60px;
+
+        }
+
+        .hero-text{
+
+            flex:1;
+
+        }
+
+        .hero-text h1{
+
+            font-size:72px;
+            line-height:1.1;
+            font-weight:bold;
+
+            margin-bottom:25px;
+
+        }
+
+        .hero-text p{
+
+            color:#94a3b8;
+
+            font-size:20px;
+
+            margin-bottom:40px;
+
+            max-width:650px;
+
+        }
+
+        .hero-buttons a{
+
+            text-decoration:none;
+            margin-right:15px;
+
+        }
+
+        .start-btn{
+
+            background:#10b981;
+            color:white;
+
+            padding:16px 28px;
+
+            border-radius:14px;
+
+            font-weight:bold;
+
+        }
+
+        .demo-btn{
+
+            border:1px solid #334155;
+            color:white;
+
+            padding:16px 28px;
+
+            border-radius:14px;
+
+        }
+
+        .mockup{
+
+            flex:1;
+
+            background:#111827;
+
+            border-radius:30px;
+
+            padding:30px;
+
+            box-shadow:0 0 50px rgba(0,0,0,0.5);
+
+        }
+
+        .mockup-top{
+
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:30px;
+
+        }
+
+        .mini-card{
+
+            background:#1e293b;
+
+            border-radius:18px;
+
+            padding:20px;
+
+            width:48%;
+
+        }
+
+        .mini-card-title{
+
+            color:#94a3b8;
+            margin-bottom:10px;
+
+        }
+
+        .mini-card-value{
+
+            font-size:28px;
+            font-weight:bold;
+
+        }
+
+        .transactions{
+
+            margin-top:20px;
+
+        }
+
+        .transaction{
+
+            background:#1e293b;
+
+            padding:18px;
+
+            border-radius:16px;
+
+            margin-bottom:15px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+        }
+
+        .transaction-name{
+
+            font-weight:bold;
+
+        }
+
+        .transaction-category{
+
+            color:#94a3b8;
+            font-size:14px;
+
+        }
+
+        .income{
+
+            color:#10b981;
+
+        }
+
+        .expense{
+
+            color:#ef4444;
+
+        }
+
+        .features{
+
+            padding:100px 80px;
+
+        }
+
+        .section-title{
+
+            text-align:center;
+
+            font-size:48px;
+            font-weight:bold;
+
+            margin-bottom:20px;
+
+        }
+
+        .section-subtitle{
+
+            text-align:center;
+
+            color:#94a3b8;
+
+            margin-bottom:60px;
+
+        }
+
+        .feature-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+            gap:30px;
+
+        }
+
+        .feature-card{
+
+            background:#111827;
+
+            padding:35px;
+
+            border-radius:24px;
+
+            transition:0.3s;
+
+        }
+
+        .feature-card:hover{
+
+            transform:translateY(-8px);
+
+        }
+
+        .feature-icon{
+
+            font-size:40px;
+
+            margin-bottom:20px;
+
+        }
+
+        .feature-card h3{
+
+            margin-bottom:15px;
+
+        }
+
+        .feature-card p{
+
+            color:#94a3b8;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar-custom">
+
+        <div class="logo">
+
+            Finova
+
+        </div>
+
+        <div class="nav-buttons">
+
+            <a href="/login"
+               class="login-btn">
+
+               Oturum Aç
+
+            </a>
+
+            <a href="/register"
+               class="register-btn">
+
+               Kayıt Ol
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>
+
+                Finansını
+                Akıllıca Yönet
+
+            </h1>
+
+            <p>
+
+                Gelirlerini, giderlerini ve bütçeni tek platformdan takip et.
+                Finova ile finansal hayatını kontrol altına al.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/register"
+                   class="start-btn">
+
+                   Hemen Başla
+
+                </a>
+
+                
+            </div>
+
+        </div>
+
+        <div class="mockup">
+
+            <div class="mockup-top">
+
+                <div class="mini-card">
+
+                    <div class="mini-card-title">
+
+                        Toplam Bakiye
+
+                    </div>
+
+                    <div class="mini-card-value income">
+
+                        24.500 TL
+
+                    </div>
+
+                </div>
+
+                <div class="mini-card">
+
+                    <div class="mini-card-title">
+
+                        Bu Ay Tasarruf
+
+                    </div>
+
+                    <div class="mini-card-value">
+
+                        %35
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="transactions">
+
+                <div class="transaction">
+
+                    <div>
+
+                        <div class="transaction-name">
+
+                            Market
+
+                        </div>
+
+                        <div class="transaction-category">
+
+                            Gıda
+
+                        </div>
+
+                    </div>
+
+                    <div class="expense">
+
+                        -850 TL
+
+                    </div>
+
+                </div>
+
+                <div class="transaction">
+
+                    <div>
+
+                        <div class="transaction-name">
+
+                            Maaş
+
+                        </div>
+
+                        <div class="transaction-category">
+
+                            Gelir
+
+                        </div>
+
+                    </div>
+
+                    <div class="income">
+
+                        +18.000 TL
+
+                    </div>
+
+                </div>
+
+                <div class="transaction">
+
+                    <div>
+
+                        <div class="transaction-name">
+
+                            Freelance
+
+                        </div>
+
+                        <div class="transaction-category">
+
+                            Yazılım
+
+                        </div>
+
+                    </div>
+
+                    <div class="income">
+
+                        +3.500 TL
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="features">
+
+        <h2 class="section-title">
+
+            Neler Sunuyoruz?
+
+        </h2>
+
+        <p class="section-subtitle">
+
+            Finans yönetimini kolaylaştıran güçlü özellikler
+
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    📊
+
+                </div>
+
+                <h3>
+
+                    Analizler
+
+                </h3>
+
+                <p>
+
+                    Harcamalarını detaylı grafiklerle analiz et.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    🎯
+
+                </div>
+
+                <h3>
+
+                    Bütçe Yönetimi
+
+                </h3>
+
+                <p>
+
+                    Kendi bütçeni oluştur ve kontrol altında tut.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    🔒
+
+                </div>
+
+                <h3>
+
+                    Güvenli Sistem
+
+                </h3>
+
+                <p>
+
+                    Şifrelenmiş kullanıcı sistemi ile güvenli kullanım.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
